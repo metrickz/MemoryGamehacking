@@ -1,21 +1,26 @@
 #pragma once
 #include <string>
+#include <windows.h>
+#include <TlHelp32.h>
 
 class Memory
 {
 
 private:
-	std::string procName;
+	HANDLE handle;
+	DWORD procId;
+
 
 public:
-	Memory(std::string procName);
+	Memory(const std::wstring procName);
+	~Memory();
 	
 	void read() {
 
 	}
 
-	void write() {
-
+	void write(LPVOID &adress, LPCVOID buffer) {
+		WriteProcessMemory(handle,&adress,&buffer,sizeof(buffer),NULL);
 	}
 
 	
